@@ -66,11 +66,9 @@ export const usePlanner = () => {
   };
 
   const sendModalFood = () => {
-    console.log("is edit", idEdit);
     if (idEdit >= 0) {
       editNameByFood();
     } else {
-      console.log("entro food");
       addFood();
     }
   };
