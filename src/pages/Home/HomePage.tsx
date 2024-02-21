@@ -23,12 +23,13 @@ export const HomePage = () => {
     modalAddFood,
     closeModalAddFood,
     entrityFoods,
-    editNameByFood,
     handleModalEditFood,
     inputCaloriesAdd,
     inputNameAdd,
     setInputCaloriesAdd,
     setInputNameAdd,
+    deleteFood,
+    sendModalFood,
   } = usePlanner();
 
   return (
@@ -39,7 +40,11 @@ export const HomePage = () => {
           {entrityFoods.map((food: any) => (
             <ListItem
               secondaryAction={
-                <IconButton edge="end" aria-label="delete">
+                <IconButton
+                  edge="end"
+                  aria-label="delete"
+                  onClick={() => deleteFood(food.id)}
+                >
                   <DeleteIcon />
                 </IconButton>
               }
@@ -65,7 +70,7 @@ export const HomePage = () => {
         setInputCaloriesAdd={setInputCaloriesAdd}
         inputNameAdd={inputNameAdd}
         setInputNameAdd={setInputNameAdd}
-        send={editNameByFood}
+        send={sendModalFood}
       />
     </Fragment>
   );

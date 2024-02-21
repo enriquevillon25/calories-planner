@@ -13,6 +13,9 @@ export const usePlanner = () => {
 
   const handleModalAddFood = () => {
     setModalAddFood(true);
+    setInputCaloriesAdd(0);
+    setInputNameAdd("");
+    setIdEdit(-1);
   };
 
   const handleModalEditFood = (id: number) => {
@@ -30,20 +33,46 @@ export const usePlanner = () => {
     setModalAddFood(false);
   };
 
+  const addFood = () => {
+    console.log("entrooooooooeee");
+    const newFood: Food = {
+      id: Number(entrityFoods[entrityFoods.length - 1].id + 1),
+      name: inputNameAdd || "",
+      calories: inputCaloriesAdd || 0,
+    };
+    setEntrityFoods([...entrityFoods, newFood]);
+    setModalAddFood(false);
+  };
+
   const editNameByFood = () => {
-    const editEntrityFood = listFoods.map((value: Food) => {
-      if (value.id === idEdit) {
+    const editEntrityFood = entrityFoods.map((food: Food) => {
+      if (food.id === idEdit) {
         return {
-          ...value,
-          name: inputNameAdd || "",
-          calories: inputCaloriesAdd || value.calories,
+          ...food,
+          name: inputNameAdd || food.name,
+          calories: inputCaloriesAdd || food.calories,
         };
       } else {
-        return value;
+        return food;
       }
     });
     setEntrityFoods(editEntrityFood);
     setModalAddFood(false);
+  };
+
+  const deleteFood = (id: number) => {
+    const deleteFood = entrityFoods.filter((food: Food) => food.id !== id);
+    setEntrityFoods(deleteFood);
+  };
+
+  const sendModalFood = () => {
+    console.log("is edit", idEdit);
+    if (idEdit >= 0) {
+      editNameByFood();
+    } else {
+      console.log("entro food");
+      addFood();
+    }
   };
 
   return {
@@ -59,5 +88,8 @@ export const usePlanner = () => {
     setEntrityFoods,
     editNameByFood,
     handleModalEditFood,
+    deleteFood,
+    addFood,
+    sendModalFood,
   };
 };
