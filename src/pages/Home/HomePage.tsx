@@ -49,7 +49,7 @@ export const HomePage = () => {
                 </IconButton>
               }
             >
-              <ListItemText primary={food.name} sx={{ width: "30%" }} />
+              <ListItemText primary={food.name} sx={{ width: "50%" }} />
               <ListItemText primary={food.calories} />
               <ListItemIcon>
                 <IconButton
