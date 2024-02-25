@@ -9,14 +9,15 @@ export const usePlanner = () => {
   const navigate = useNavigate();
 
   const [modalAddFood, setModalAddFood] = useState(false);
-  const [inputCaloriesAdd, setInputCaloriesAdd] = useState<number>();
-  const [inputNameAdd, setInputNameAdd] = useState<string>();
+  const [inputCaloriesAdd, setInputCaloriesAdd] = useState<
+    number | undefined
+  >();
+  const [inputNameAdd, setInputNameAdd] = useState<string>("");
   const [idEdit, setIdEdit] = useState<number>(0);
 
   const handleModalAddFood = () => {
     setModalAddFood(true);
-    console.log("probando");
-    setInputCaloriesAdd(0);
+    setInputCaloriesAdd(undefined);
     setInputNameAdd("");
     setIdEdit(-1);
   };
@@ -40,9 +41,11 @@ export const usePlanner = () => {
     const newFood: Food = {
       id: Number(entrityFoods[entrityFoods.length - 1].id + 1),
       name: inputNameAdd || "",
-      calories: inputCaloriesAdd || 0,
+      calories: Number(inputCaloriesAdd) || 0,
     };
+    console.log("new food", newFood);
     setEntrityFoods([...entrityFoods, newFood]);
+    setModalAddFood(false);
   };
 
   const editNameByFood = () => {

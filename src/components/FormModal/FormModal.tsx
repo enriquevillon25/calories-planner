@@ -1,8 +1,7 @@
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { usePlanner } from "../../pages/hooks/usePlanner";
+import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
+import React from "react";
 
-export const FormModal = ({
+export const FormModal: React.FC<any> = ({
   open,
   onClose,
   inputCaloriesAdd,
@@ -39,7 +38,12 @@ export const FormModal = ({
         >
           Add Food
         </Typography>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <Grid
+          container
+          justifyContent={"start"}
+          flexDirection={"column"}
+          gap={2}
+        >
           <TextField
             id="standard-basic"
             label="Name"
@@ -51,15 +55,27 @@ export const FormModal = ({
             id="standard-basic"
             label="Calories"
             variant="standard"
-            value={inputCaloriesAdd}
-            onChange={(event: any) => setInputCaloriesAdd(event.target.value)}
+            value={inputCaloriesAdd !== undefined ? inputCaloriesAdd : ""}
+            onChange={(event: any) => {
+              setInputCaloriesAdd(event.target.value);
+            }}
           />
-        </div>
-        <Box sx={{ display: "flex", justifyContent: "end" }}>
-          <Button variant="contained" onClick={() => send()}>
-            Save
-          </Button>
-        </Box>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Button
+                variant="contained"
+                onClick={send}
+                disabled={
+                  inputNameAdd === "" ||
+                  inputCaloriesAdd === "" ||
+                  inputCaloriesAdd === undefined
+                }
+              >
+                Save
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </Box>
     </Modal>
   );
