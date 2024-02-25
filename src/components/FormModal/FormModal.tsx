@@ -1,6 +1,6 @@
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { usePlanner } from "../../hooks/usePlanner";
+import { usePlanner } from "../../pages/hooks/usePlanner";
 
 export const FormModal = ({
   open,
@@ -55,9 +55,11 @@ export const FormModal = ({
             onChange={(event: any) => setInputCaloriesAdd(event.target.value)}
           />
         </div>
-        <Button variant="contained" onClick={() => send()}>
-          Save
-        </Button>
+        <Box sx={{ display: "flex", justifyContent: "end" }}>
+          <Button variant="contained" onClick={() => send()}>
+            Save
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );

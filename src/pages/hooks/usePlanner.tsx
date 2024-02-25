@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
-import { Food } from "../interfaces/Food";
+import { Food } from "../../interfaces/Food";
 import { listFoods } from "../../data/data";
+import { useNavigate } from "react-router-dom";
 
 export const usePlanner = () => {
   const [entrityFoods, setEntrityFoods] = useState<Food[]>(listFoods);
+  const navigate = useNavigate();
 
   const [modalAddFood, setModalAddFood] = useState(false);
   const [inputCaloriesAdd, setInputCaloriesAdd] = useState<number>();
@@ -13,6 +15,7 @@ export const usePlanner = () => {
 
   const handleModalAddFood = () => {
     setModalAddFood(true);
+    console.log("probando");
     setInputCaloriesAdd(0);
     setInputNameAdd("");
     setIdEdit(-1);
@@ -34,14 +37,12 @@ export const usePlanner = () => {
   };
 
   const addFood = () => {
-    console.log("entrooooooooeee");
     const newFood: Food = {
       id: Number(entrityFoods[entrityFoods.length - 1].id + 1),
       name: inputNameAdd || "",
       calories: inputCaloriesAdd || 0,
     };
     setEntrityFoods([...entrityFoods, newFood]);
-    setModalAddFood(false);
   };
 
   const editNameByFood = () => {
@@ -73,6 +74,20 @@ export const usePlanner = () => {
     }
   };
 
+  const totalCaloriesByDay = () => {
+    const totalCaloriesByDay = entrityFoods.reduce(
+      (acumulator, food): any => acumulator + food.calories,
+      0
+    );
+    return totalCaloriesByDay;
+  };
+
+  const redirectProfile = () => {
+    navigate("/profile", { replace: true });
+  };
+  const redirectHome = () => {
+    navigate("/", { replace: true });
+  };
   return {
     modalAddFood,
     setModalAddFood,
@@ -89,5 +104,8 @@ export const usePlanner = () => {
     deleteFood,
     addFood,
     sendModalFood,
+    totalCaloriesByDay,
+    redirectProfile,
+    redirectHome,
   };
 };

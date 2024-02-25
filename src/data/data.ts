@@ -1,4 +1,4 @@
-import { Food } from "../pages/interfaces/Food";
+import { Food } from "../interfaces/Food";
 
 export const listFoods: Food[] = [
   { id: 1, name: "Arroz con pollo", calories: 400 },
