@@ -29,7 +29,7 @@ export const FormModal: React.FC<any> = ({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style}>
+      <Box sx={style} component={"form"}>
         <Typography
           id="modal-modal-title"
           variant="h6"
@@ -45,14 +45,12 @@ export const FormModal: React.FC<any> = ({
           gap={2}
         >
           <TextField
-            id="standard-basic"
             label="Name"
             variant="standard"
             value={inputNameAdd}
             onChange={(event: any) => setInputNameAdd(event.target.value)}
           />
           <TextField
-            id="standard-basic"
             label="Calories"
             variant="standard"
             value={inputCaloriesAdd !== undefined ? inputCaloriesAdd : ""}
@@ -63,13 +61,14 @@ export const FormModal: React.FC<any> = ({
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button
-                variant="contained"
                 onClick={send}
+                variant="contained"
                 disabled={
                   inputNameAdd === "" ||
                   inputCaloriesAdd === "" ||
                   inputCaloriesAdd === undefined
                 }
+                type="submit"
               >
                 Save
               </Button>

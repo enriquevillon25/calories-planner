@@ -43,9 +43,7 @@ export const usePlanner = () => {
       name: inputNameAdd || "",
       calories: Number(inputCaloriesAdd) || 0,
     };
-    console.log("new food", newFood);
     setEntrityFoods([...entrityFoods, newFood]);
-    setModalAddFood(false);
   };
 
   const editNameByFood = () => {
@@ -54,7 +52,7 @@ export const usePlanner = () => {
         return {
           ...food,
           name: inputNameAdd || food.name,
-          calories: inputCaloriesAdd || food.calories,
+          calories: Number(inputCaloriesAdd) || food.calories,
         };
       } else {
         return food;
@@ -69,12 +67,14 @@ export const usePlanner = () => {
     setEntrityFoods(deleteFood);
   };
 
-  const sendModalFood = () => {
+  const sendModalFood = (e: any) => {
+    e.preventDefault();
     if (idEdit >= 0) {
       editNameByFood();
     } else {
       addFood();
     }
+    setModalAddFood(false);
   };
 
   const totalCaloriesByDay = () => {
@@ -91,6 +91,7 @@ export const usePlanner = () => {
   const redirectHome = () => {
     navigate("/", { replace: true });
   };
+
   return {
     modalAddFood,
     setModalAddFood,
