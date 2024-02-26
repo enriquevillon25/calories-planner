@@ -5,6 +5,7 @@ import { Container, Grid, Typography } from "@mui/material";
 import { CardBasicComponent } from "../../components/CardBasic/CardBasicComponent";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ModalBasicComponent } from "../../components/ModalBasic/ModalBasicComponent";
+
 export const ProfilePage = () => {
   const { handleModalAddFood, redirectHome } = usePlanner();
   const foodsPerDay = [

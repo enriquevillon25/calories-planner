@@ -39,6 +39,7 @@ export const HomePage = () => {
     redirectProfile,
   } = usePlanner();
 
+  console.log("entrity food", entrityFoods);
   const date = new Date();
   return (
     <Fragment>

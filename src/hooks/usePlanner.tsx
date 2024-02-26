@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Food } from "../interfaces/Food";
 import { listFoods } from "../data/data";
 import { useNavigate } from "react-router-dom";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  getDocs,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../firebase/config";
 
 export const usePlanner = () => {
-  const [entrityFoods, setEntrityFoods] = useState<Food[]>(listFoods);
+  const [entrityFoods, setEntrityFoods] = useState<Food[]>([]);
   const navigate = useNavigate();
 
   const [modalAddFood, setModalAddFood] = useState(false);
@@ -15,40 +24,57 @@ export const usePlanner = () => {
   const [inputNameAdd, setInputNameAdd] = useState<string>("");
   const [idEdit, setIdEdit] = useState<number>(0);
 
+  useEffect(() => {
+    (async () => {
+      const foodRef = collection(db, "foods");
+      const snapFood = await getDocs(foodRef);
+      const foods = snapFood.docs.map((food: any) => ({
+        ...food.data(),
+        id: food.id,
+      }));
+
+      setEntrityFoods(foods);
+    })();
+  }, []);
+
   const handleModalAddFood = () => {
     setModalAddFood(true);
     setInputCaloriesAdd(undefined);
     setInputNameAdd("");
-    setIdEdit(-1);
+    setIdEdit(0);
   };
 
   const handleModalEditFood = (id: number) => {
     setModalAddFood(true);
     setIdEdit(id);
-    entrityFoods.forEach((food) => {
-      if (food.id === id) {
-        setInputCaloriesAdd(food.calories);
-        setInputNameAdd(food.name);
-      }
-    });
   };
 
   const closeModalAddFood = () => {
     setModalAddFood(false);
   };
 
-  const addFood = () => {
+  const addFood = async () => {
     const newFood: Food = {
       id: Number(entrityFoods[entrityFoods.length - 1].id + 1),
       name: inputNameAdd || "",
       calories: Number(inputCaloriesAdd) || 0,
     };
-    setEntrityFoods([...entrityFoods, newFood]);
+    const docRef = await addDoc(collection(db, "foods"), newFood);
+    setEntrityFoods([...entrityFoods, { ...newFood, id: Number(docRef.id) }]);
   };
 
-  const editNameByFood = () => {
+  const editNameByFood = async () => {
     const editEntrityFood = entrityFoods.map((food: Food) => {
-      if (food.id === idEdit) {
+      if (String(food.id) === String(idEdit)) {
+        setInputCaloriesAdd(food.calories);
+        setInputNameAdd(food.name);
+        const foodRef = doc(db, "foods", food.id.toString());
+        (async () => {
+          await updateDoc(foodRef, {
+            name: inputNameAdd,
+            calories: Number(inputCaloriesAdd),
+          });
+        })();
         return {
           ...food,
           name: inputNameAdd || food.name,
@@ -62,14 +88,15 @@ export const usePlanner = () => {
     setModalAddFood(false);
   };
 
-  const deleteFood = (id: number) => {
+  const deleteFood = async (id: number) => {
+    await deleteDoc(doc(db, "foods", id.toString()));
     const deleteFood = entrityFoods.filter((food: Food) => food.id !== id);
     setEntrityFoods(deleteFood);
   };
 
   const sendModalFood = (e: any) => {
     e.preventDefault();
-    if (idEdit >= 0) {
+    if (idEdit) {
       editNameByFood();
     } else {
       addFood();
