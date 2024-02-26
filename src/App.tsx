@@ -1,6 +1,6 @@
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
-import { usePlanner } from "./pages/hooks/usePlanner";
+import { usePlanner } from "./hooks/usePlanner";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
 import { HeaderComponent } from "./components/Header/HeaderComponent";

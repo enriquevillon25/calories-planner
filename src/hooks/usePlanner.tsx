@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import { Food } from "../../interfaces/Food";
-import { listFoods } from "../../data/data";
+import { Food } from "../interfaces/Food";
+import { listFoods } from "../data/data";
 import { useNavigate } from "react-router-dom";
 
 export const usePlanner = () => {
@@ -88,6 +88,7 @@ export const usePlanner = () => {
   const redirectProfile = () => {
     navigate("/profile", { replace: true });
   };
+
   const redirectHome = () => {
     navigate("/", { replace: true });
   };

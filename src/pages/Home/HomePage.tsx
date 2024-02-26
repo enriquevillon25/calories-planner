@@ -11,7 +11,7 @@ import {
 import { Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Person3 from "@mui/icons-material/Person3";
-import { usePlanner } from "../hooks/usePlanner";
+import { usePlanner } from "../../hooks/usePlanner";
 import { FormModal } from "../../components/FormModal/FormModal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";

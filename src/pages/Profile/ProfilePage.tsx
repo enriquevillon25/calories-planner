@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import { HeaderComponent } from "../../components/Header/HeaderComponent";
-import { usePlanner } from "../hooks/usePlanner";
-import { format } from "@formkit/tempo";
-import { Container, Grid, List, Typography } from "@mui/material";
+import { usePlanner } from "../../hooks/usePlanner";
+import { Container, Grid, Typography } from "@mui/material";
 import { CardBasicComponent } from "../../components/CardBasic/CardBasicComponent";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ModalBasicComponent } from "../../components/ModalBasic/ModalBasicComponent";
@@ -26,7 +25,7 @@ export const ProfilePage = () => {
         icon={<ArrowBackIcon />}
       />
       <Container maxWidth="lg">
-        <Typography variant="h4" align="center" sx={{ mb: 9 }}>
+        <Typography variant="h4" align="center" sx={{ mb: 4, mt: 4 }}>
           The last seven days
         </Typography>
         <Grid container spacing={2}>
