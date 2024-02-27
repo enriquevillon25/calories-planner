@@ -15,6 +15,7 @@ import { db } from "../firebase/config";
 
 export const usePlanner = () => {
   const [entrityFoods, setEntrityFoods] = useState<Food[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const [modalAddFood, setModalAddFood] = useState(false);
@@ -25,15 +26,17 @@ export const usePlanner = () => {
   const [idEdit, setIdEdit] = useState<number>(0);
 
   useEffect(() => {
+    setIsLoading(true);
     (async () => {
       const foodRef = collection(db, "foods");
       const snapFood = await getDocs(foodRef);
       const foods = snapFood.docs.map((food: any) => ({
         ...food.data(),
         id: food.id,
+        createDate: food.data().createDate.toDate(),
       }));
-
       setEntrityFoods(foods);
+      setIsLoading(false);
     })();
   }, []);
 
@@ -54,13 +57,16 @@ export const usePlanner = () => {
   };
 
   const addFood = async () => {
-    const newFood: Food = {
-      id: Number(entrityFoods[entrityFoods.length - 1].id + 1),
+    const newFood = {
       name: inputNameAdd || "",
       calories: Number(inputCaloriesAdd) || 0,
     };
     const docRef = await addDoc(collection(db, "foods"), newFood);
-    setEntrityFoods([...entrityFoods, { ...newFood, id: Number(docRef.id) }]);
+    console.log("id gen", docRef.id);
+    setEntrityFoods([
+      ...entrityFoods,
+      { ...newFood, id: docRef.id, createDate: "" },
+    ]);
   };
 
   const editNameByFood = async () => {
@@ -68,7 +74,7 @@ export const usePlanner = () => {
       if (String(food.id) === String(idEdit)) {
         setInputCaloriesAdd(food.calories);
         setInputNameAdd(food.name);
-        const foodRef = doc(db, "foods", food.id.toString());
+        const foodRef = doc(db, "foods", food.id);
         (async () => {
           await updateDoc(foodRef, {
             name: inputNameAdd,
@@ -88,8 +94,8 @@ export const usePlanner = () => {
     setModalAddFood(false);
   };
 
-  const deleteFood = async (id: number) => {
-    await deleteDoc(doc(db, "foods", id.toString()));
+  const deleteFood = async (id: string) => {
+    await deleteDoc(doc(db, "foods", id));
     const deleteFood = entrityFoods.filter((food: Food) => food.id !== id);
     setEntrityFoods(deleteFood);
   };
@@ -139,5 +145,6 @@ export const usePlanner = () => {
     totalCaloriesByDay,
     redirectProfile,
     redirectHome,
+    isLoading,
   };
 };
