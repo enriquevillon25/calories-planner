@@ -20,10 +20,6 @@ import { PrimaryItemComponent } from "../../components/PrimaryItem/PrimaryItemCo
 import { PrimaryItemSkaleton } from "../../components/PrimaryItem/PrimaryItemSkaleton";
 
 export const HomePage = () => {
-  const style = {
-    // width: "60%",
-    margin: 0,
-  };
   const {
     modalAddFood,
     closeModalAddFood,
@@ -67,14 +63,14 @@ export const HomePage = () => {
             <Typography variant="h1" align="center">
               {totalCaloriesByDay()}
             </Typography>
-            <List sx={style}>
+            <List>
               {entrityFoods.map((food: any) => (
                 <PrimaryItemComponent
                   name={food.name}
                   calories={food.calories}
                   key={food.id}
                   onClickSecondary={() => deleteFood(food.id)}
-                  onCLick={() => handleModalEditFood(food.id)}
+                  onClick={() => handleModalEditFood(food.id)}
                 />
               ))}
             </List>

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { HeaderComponent } from "../../components/Header/HeaderComponent";
 import { usePlanner } from "../../hooks/usePlanner";
 import { Container, Grid, Typography } from "@mui/material";
@@ -7,9 +7,42 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ModalBasicComponent } from "../../components/ModalBasic/ModalBasicComponent";
 
 export const ProfilePage = () => {
-  const { handleModalAddFood, redirectHome } = usePlanner();
+  const { handleModalAddFood, redirectHome, totalCaloriesByDay, entrityFoods } =
+    usePlanner();
+
+  const date = new Date();
+
+  console.log(date.getMonth(), entrityFoods[0]?.createDate.getMonth());
+  useEffect(() => {
+    console.log(
+      entrityFoods[0]?.createDate.getDate() === date.getDate() &&
+        Number(entrityFoods[0]?.createDate.getMonth()) ===
+          Number(date.getMonth())
+    );
+    const filterFood = entrityFoods.filter(
+      (value) =>
+        value.createDate.getDate() === date.getDate() &&
+        value.createDate.getMonth() === date.getMonth()
+    );
+    console.log("filter food", filterFood);
+  }, []);
+
+  const objProfile = {
+    id: "1",
+    // listFood: entrityFoods.filter,
+    totalCalories: 1000,
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
+  };
+
+  console.log(objProfile);
   const foodsPerDay = [
-    { id: 1, name: "Lunes 07", listFoods: [], totalCalories: 1600 },
+    {
+      id: 1,
+      name: "Lunes 07",
+      listFoods: [{ id: "1" }],
+      totalCalories: totalCaloriesByDay(),
+    },
     { id: 2, name: "Martes 08", listFoods: [], totalCalories: 1600 },
     { id: 3, name: "Miercoles 09", listFoods: [], totalCalories: 1600 },
     { id: 4, name: "Jueves 10", listFoods: [], totalCalories: 1600 },
@@ -36,7 +69,7 @@ export const ProfilePage = () => {
                 <CardBasicComponent
                   title={value.name}
                   calories={value.totalCalories}
-                ></CardBasicComponent>
+                />
               </Grid>
             );
           })}
