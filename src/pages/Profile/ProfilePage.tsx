@@ -58,7 +58,7 @@ export const ProfilePage = () => {
         onCLick={redirectHome}
         icon={<ArrowBackIcon />}
       />
-      <Container maxWidth="lg">
+      {/* <Container maxWidth="lg"> */}
         <Typography variant="h4" align="center" sx={{ mb: 4, mt: 4 }}>
           The last seven days
         </Typography>
@@ -75,7 +75,9 @@ export const ProfilePage = () => {
           })}
         </Grid>
         <ModalBasicComponent title={"Lista de comidas"} />
-      </Container>
+      {/* </Container> */}
+
+      <Container maxWidth="lg"></Container>
     </Fragment>
   );
 };
