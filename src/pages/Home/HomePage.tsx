@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import {
   List,
   ListItem,
@@ -18,8 +18,10 @@ import { HeaderComponent } from "../../components/Header/HeaderComponent";
 import { format } from "@formkit/tempo";
 import { PrimaryItemComponent } from "../../components/PrimaryItem/PrimaryItemComponent";
 import { PrimaryItemSkaleton } from "../../components/PrimaryItem/PrimaryItemSkaleton";
+import { useAuth } from "../../hooks/useAuth";
 
 export const HomePage = () => {
+  const { validateEmail } = useAuth();
   const {
     modalAddFood,
     closeModalAddFood,
@@ -39,6 +41,10 @@ export const HomePage = () => {
 
   console.log("entrity food", entrityFoods);
   const date = new Date();
+  useEffect(() => {
+    validateEmail("enriquevillon2597@gmail.com", "123456");
+  }, []);
+
   return (
     <Fragment>
       <HeaderComponent

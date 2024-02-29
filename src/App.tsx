@@ -1,10 +1,8 @@
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
-import { usePlanner } from "./hooks/usePlanner";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ProfilePage } from "./pages/Profile/ProfilePage";
-import { HeaderComponent } from "./components/Header/HeaderComponent";
-
+import { AuthPage } from "./pages/Auth/AuthPage";
 
 function App() {
   return (
@@ -12,6 +10,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<AuthPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>

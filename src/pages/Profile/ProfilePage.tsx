@@ -1,7 +1,14 @@
 import React, { Fragment, useEffect } from "react";
 import { HeaderComponent } from "../../components/Header/HeaderComponent";
 import { usePlanner } from "../../hooks/usePlanner";
-import { Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { CardBasicComponent } from "../../components/CardBasic/CardBasicComponent";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { ModalBasicComponent } from "../../components/ModalBasic/ModalBasicComponent";
@@ -58,26 +65,43 @@ export const ProfilePage = () => {
         onCLick={redirectHome}
         icon={<ArrowBackIcon />}
       />
-      {/* <Container maxWidth="lg"> */}
+      <Container maxWidth="lg">
         <Typography variant="h4" align="center" sx={{ mb: 4, mt: 4 }}>
-          The last seven days
+          Calories planner
         </Typography>
-        <Grid container spacing={2}>
-          {foodsPerDay.map((value: any) => {
-            return (
-              <Grid item xs={6}>
-                <CardBasicComponent
-                  title={value.name}
-                  calories={value.totalCalories}
-                />
-              </Grid>
-            );
-          })}
-        </Grid>
-        <ModalBasicComponent title={"Lista de comidas"} />
-      {/* </Container> */}
-
-      <Container maxWidth="lg"></Container>
+        <Box maxWidth="lg" component={"form"}>
+          <Grid
+            container
+            justifyContent={"start"}
+            flexDirection={"column"}
+            gap={2}
+          >
+            <TextField label="Email" variant="outlined" />
+            <TextField label="Password" variant="outlined" />
+            <Grid container justifyContent="flex-end">
+              <Button onClick={() => console.log("value")} variant="contained">
+                Send
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Container>
     </Fragment>
   );
 };
+
+{
+  /* <Grid container spacing={2}>
+{foodsPerDay.map((value: any) => {
+  return (
+    <Grid item xs={6}>
+      <CardBasicComponent
+        title={value.name}
+        calories={value.totalCalories}
+      />
+    </Grid>
+  );
+})}
+</Grid>
+<ModalBasicComponent title={"Lista de comidas"} /> */
+}
