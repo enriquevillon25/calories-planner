@@ -10,8 +10,5 @@ export const ValidateRouteAuth = ({ children }: any) => {
     console.log("entroo");
     return <Navigate replace to={"/login"} state={{ from: location }} />;
   }
-  //   if (user.id) {
-  //     return <Navigate replace to={"/"} state={{ from: location }} />;
-  //   }
   return children;
 };
