@@ -18,7 +18,7 @@ export const usePlanner = () => {
   >();
   const [inputNameAdd, setInputNameAdd] = useState<string | undefined>("");
   const [idEdit, setIdEdit] = useState<string>("");
-
+  const currentDate = new Date();
   useEffect(() => {
     getListFood();
   }, []);
@@ -125,13 +125,18 @@ export const usePlanner = () => {
     return totalCaloriesByDay;
   };
 
+  const listFoodsByDay = () =>
+    entrityFoods.filter(
+      (food: Food) => food.createDate.getDate() === currentDate.getDate()
+    );
   // navigate
 
   const redirectProfile = () => {
-    navigate("/profile", { replace: true });
+    navigate("/login", { replace: true });
   };
 
   const redirectHome = () => {
+    console.log("true");
     navigate("/", { replace: true });
   };
 
@@ -153,5 +158,6 @@ export const usePlanner = () => {
     redirectProfile,
     redirectHome,
     isLoading,
+    listFoodsByDay,
   };
 };

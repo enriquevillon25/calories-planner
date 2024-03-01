@@ -1,21 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../firebase/config";
+import { usePlanner } from "./usePlanner";
 
 export const useAuth = () => {
-  const [login, setLogin] = useState("");
-  
+  const [user, setUser] = useState<any>({});
+  //   const { redirectHome } = usePlanner();
   useEffect(() => {
-    console.log("auth use");
-    onAuthStateChanged(auth, async (user) => {
-      console.log("user", user);
+    // console.log("auth use");
+    const unsuscribe = onAuthStateChanged(auth, (fireBaseUser: any) => {
+      // console.log("user auth hook", user);
+      if (fireBaseUser) {
+        const newUser: any = {
+          id: fireBaseUser.uid,
+          accessToken: fireBaseUser.accessToken,
+          displayName: fireBaseUser.displayName,
+          email: fireBaseUser.email,
+        };
+        setUser(newUser);
+      }
     });
-    // onAuthStateChanged();
+
+    return () => unsuscribe();
   }, []);
 
   const validateEmail = async (email: string, password: string) => {
-    const credentails = await signInWithEmailAndPassword(auth, email, password);
-    console.log("credentiales", credentails);
+    try {
+      const credentials: any = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      setUser({
+        id: credentials.user.uid,
+        accessToken: credentials.user.accessToken,
+        displayName: credentials.user.displayName,
+        email: credentials.user.email,
+      });
+      console.log("user valide email", credentials);
+    } catch (e) {
+      console.log("Usuario no valido");
+    }
   };
-  return { validateEmail };
+
+  const singOutSession = async () => {
+    try {
+      await signOut(auth);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  
+  return { validateEmail, user, setUser, singOutSession };
 };

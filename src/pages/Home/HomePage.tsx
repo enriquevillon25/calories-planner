@@ -1,14 +1,5 @@
 import { Fragment, useEffect } from "react";
-import {
-  List,
-  ListItem,
-  ListItemText,
-  IconButton,
-  ListItemIcon,
-  Container,
-  Button,
-  Box,
-} from "@mui/material";
+import { List, Container, Button, Box } from "@mui/material";
 import { Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Person3 from "@mui/icons-material/Person3";
@@ -21,7 +12,6 @@ import { PrimaryItemSkaleton } from "../../components/PrimaryItem/PrimaryItemSka
 import { useAuth } from "../../hooks/useAuth";
 
 export const HomePage = () => {
-  const { validateEmail } = useAuth();
   const {
     modalAddFood,
     closeModalAddFood,
@@ -38,19 +28,23 @@ export const HomePage = () => {
     redirectProfile,
     isLoading,
   } = usePlanner();
-
+  const { singOutSession } = useAuth();
   console.log("entrity food", entrityFoods);
   const date = new Date();
-  useEffect(() => {
-    validateEmail("enriquevillon2597@gmail.com", "123456");
-  }, []);
-
+  const validateSingOunt = async () => {
+    try {
+      await singOutSession();
+      redirectProfile();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Fragment>
       <HeaderComponent
         onAdd={handleModalAddFood}
         title={format(date, "full")}
-        onCLick={redirectProfile}
+        onCLick={validateSingOunt}
         icon={<Person3 />}
       >
         <Button
@@ -67,7 +61,7 @@ export const HomePage = () => {
         ) : (
           <Box>
             <Typography variant="h1" align="center">
-              {totalCaloriesByDay()}
+              {entrityFoods.length > 0 ? totalCaloriesByDay() : "Empty Foods"}
             </Typography>
             <List>
               {entrityFoods.map((food: any) => (

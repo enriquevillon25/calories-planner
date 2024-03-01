@@ -9,9 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { CardBasicComponent } from "../../components/CardBasic/CardBasicComponent";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { ModalBasicComponent } from "../../components/ModalBasic/ModalBasicComponent";
 
 export const ProfilePage = () => {
   const { handleModalAddFood, redirectHome, totalCaloriesByDay, entrityFoods } =
