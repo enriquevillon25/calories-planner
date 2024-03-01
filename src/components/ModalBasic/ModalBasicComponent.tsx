@@ -1,5 +1,5 @@
 import { Box, Modal, Typography } from "@mui/material";
-import React from "react";
+
 
 export const ModalBasicComponent = ({ open, handleClose, title }: any) => {
   return (

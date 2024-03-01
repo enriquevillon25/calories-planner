@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { HeaderComponent } from "../../components/Header/HeaderComponent";
 import { usePlanner } from "../../hooks/usePlanner";
 import {
@@ -12,7 +12,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const ProfilePage = () => {
-  const { handleModalAddFood, redirectHome, totalCaloriesByDay, entrityFoods } =
+  const { handleModalAddFood, redirectHome, entrityFoods } =
     usePlanner();
 
   const date = new Date();
@@ -31,29 +31,6 @@ export const ProfilePage = () => {
     );
     console.log("filter food", filterFood);
   }, []);
-
-  const objProfile = {
-    id: "1",
-    // listFood: entrityFoods.filter,
-    totalCalories: 1000,
-    month: new Date().getMonth() + 1,
-    day: new Date().getDate(),
-  };
-
-  console.log(objProfile);
-  const foodsPerDay = [
-    {
-      id: 1,
-      name: "Lunes 07",
-      listFoods: [{ id: "1" }],
-      totalCalories: totalCaloriesByDay(),
-    },
-    { id: 2, name: "Martes 08", listFoods: [], totalCalories: 1600 },
-    { id: 3, name: "Miercoles 09", listFoods: [], totalCalories: 1600 },
-    { id: 4, name: "Jueves 10", listFoods: [], totalCalories: 1600 },
-    { id: 5, name: "Viernes 11", listFoods: [], totalCalories: 1600 },
-    { id: 6, name: "Sabado 12", listFoods: [], totalCalories: 1600 },
-  ];
 
   return (
     <Fragment>

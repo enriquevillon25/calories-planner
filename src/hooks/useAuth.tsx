@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import { auth } from "../firebase/config";
-import { usePlanner } from "./usePlanner";
 
 export const useAuth = () => {
   const [user, setUser] = useState<any>({});
