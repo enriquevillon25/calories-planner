@@ -12,12 +12,10 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export const ProfilePage = () => {
-  const { handleModalAddFood, redirectHome, entrityFoods } =
-    usePlanner();
+  const { handleModalAddFood, redirectHome, entrityFoods } = usePlanner();
 
   const date = new Date();
 
-  console.log(date.getMonth(), entrityFoods[0]?.createDate.getMonth());
   useEffect(() => {
     console.log(
       entrityFoods[0]?.createDate.getDate() === date.getDate() &&
@@ -29,7 +27,6 @@ export const ProfilePage = () => {
         value.createDate.getDate() === date.getDate() &&
         value.createDate.getMonth() === date.getMonth()
     );
-    console.log("filter food", filterFood);
   }, []);
 
   return (

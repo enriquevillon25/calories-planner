@@ -22,9 +22,7 @@ export const CardBasicComponent = ({ title, calories }: any) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => console.log("modal")}>
-          Learn More
-        </Button>
+        <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
   );

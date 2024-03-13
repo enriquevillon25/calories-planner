@@ -29,14 +29,13 @@ export const HomePage = () => {
     isLoading,
   } = usePlanner();
   const { singOutSession } = useAuth();
-  console.log("entrity food", entrityFoods);
   const date = new Date();
   const validateSingOunt = async () => {
     try {
       await singOutSession();
-      redirectProfile();
     } catch (e) {
-      console.log(e);
+    } finally {
+      redirectProfile();
     }
   };
   return (

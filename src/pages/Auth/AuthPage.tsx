@@ -12,22 +12,21 @@ import { useAuth } from "../../hooks/useAuth";
 
 export const AuthPage = () => {
   const { redirectHome } = usePlanner();
-  const { validateEmail } = useAuth();
+  const { validateEmail, user } = useAuth();
 
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
 
   const sendLogin = async (e: any) => {
-    console.log("probandoo");
     e.preventDefault();
     try {
       await validateEmail(inputEmail, inputPassword);
-      redirectHome();
     } catch (e) {
       throw e;
+    } finally {
+      redirectHome();
     }
   };
-
   return (
     <Fragment>
       <Container maxWidth="lg">
